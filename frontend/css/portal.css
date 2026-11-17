@@ -1,0 +1,213 @@
+/* SYSTEM GYM — áreas Administrador e Aluno (protótipo visual) */
+[hidden]{display:none!important}
+.portal-screen{position:fixed;inset:0;z-index:100;background:radial-gradient(ellipse 70% 78% at 14% 20%,#45341c80,transparent 69%),#0f1013;display:grid;place-items:center;padding:30px 22px;overflow:auto}
+.portal-shell{width:min(1120px,100%);display:grid;grid-template-columns:minmax(0,1fr) 420px;gap:clamp(24px,8vw,110px);align-items:center;animation:portalEnter .8s cubic-bezier(.19,1,.22,1) both}
+@keyframes portalEnter{from{opacity:0;transform:translateY(25px);filter:blur(6px)}to{opacity:1;transform:translateY(0);filter:blur(0)}}
+.portal-label{display:inline-block;font-size:10px;letter-spacing:2px;color:#d7ae59;font-weight:700;margin-bottom:24px}
+.portal-logo{width:73px;height:73px;border:1px solid #74552f;display:grid;place-items:center;border-radius:20px;background:linear-gradient(135deg,#564229,#2f261d);color:#f5d48f;box-shadow:0 0 65px #d4ac4322}
+.portal-logo .icon{width:39px;height:39px}
+.portal-intro h1{font-weight:850;font-size:clamp(39px,5vw,66px);line-height:1.15;letter-spacing:-2.4px;margin:30px 0 20px;color:#f7f4ee}
+.portal-intro h1 em{font-style:normal;color:#d7ae59}
+.portal-intro>p{max-width:520px;font-size:15px;line-height:1.85;color:#b7b2ac;margin-bottom:28px}
+.portal-points{display:flex;flex-wrap:wrap;gap:12px 20px;color:#d6d1ca;font-size:11px}
+.portal-points span{display:flex;align-items:center;gap:6px}.portal-points .icon{color:#d7ae59;width:15px;height:15px}
+.portal-warning{max-width:535px;color:#b8aa90;border-left:3px solid #b48b44;padding:10px 14px;margin-top:33px;font-size:11px;line-height:1.7;background:#b48b440b}
+.portal-card{background:#1b1c20;border:1px solid #424043;padding:32px;border-radius:18px;box-shadow:0 25px 90px #0008}
+.portal-card h2{font-size:23px;letter-spacing:-.6px;margin:8px 0 25px;color:#f6f3ef}
+.portal-role{display:flex;align-items:center;gap:14px;width:100%;background:#26262a;border:1px solid #4f4130;color:#f3f0ea;border-radius:12px;padding:15px;text-align:left;transition:.25s}
+.portal-role:hover{transform:translateY(-3px);border-color:#d7ae59;box-shadow:0 10px 22px #0003}.portal-role-icon{width:41px;height:41px;display:grid;place-items:center;border-radius:10px;background:#55402555;color:#d7ae59}
+.portal-role strong,.portal-role small{display:block}.portal-role strong{font-size:13px}.portal-role small{color:#aaa49a;font-size:11px;margin-top:5px}.portal-role>span:nth-child(2){flex:1}.portal-role>b{font-size:23px;color:#d7ae59;font-weight:400}
+.portal-divider{text-align:center;color:#757278;font-size:11px;margin:19px 0}
+.portal-field{display:block;font-size:12px;color:#d3cfca;font-weight:600;margin-bottom:9px}.portal-select{width:100%;background:#26272c!important;color:#fff!important;border-color:#454248!important}
+.portal-enter{margin-top:12px;width:100%;padding:14px}.portal-hint{font-size:10px;color:#969198;line-height:1.7;margin:14px 0 0}
+.top-profile-button{background:none;border-top:0;border-right:0;border-bottom:0;cursor:pointer;padding-top:0;padding-bottom:0;white-space:nowrap}
+.top-profile-button:hover strong,.top-profile-button:hover .icon{color:var(--gold)}
+.switch-profile{display:flex;width:100%;align-items:center;gap:10px;padding:11px 12px;margin-top:14px;background:transparent;border:1px solid var(--line);border-radius:8px;color:var(--muted);font-weight:650;font-size:11px;transition:.2s}
+.switch-profile .icon{width:16px;height:16px}.switch-profile:hover{border-color:var(--gold-muted);color:var(--gold)}
+body.student-mode .notification-wrap,body.student-mode .global-search{display:none}
+body.student-mode .workspace{background:radial-gradient(70% 70% at 80% 0%,var(--gold-bg),transparent 70%),var(--bg)}
+.student-main .student-stats{grid-template-columns:repeat(4,minmax(0,1fr))}
+.student-highlight-card>strong{display:block;font-size:25px;letter-spacing:-.7px;margin-top:20px}
+.student-highlight-card .status{display:inline-flex}
+.student-dashboard-grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(290px,1fr);gap:16px}
+.student-hero{position:relative;overflow:hidden;min-height:248px;background:linear-gradient(115deg,var(--surface),color-mix(in srgb,var(--surface) 82%,#b0873c));display:flex;flex-direction:column;align-items:flex-start;justify-content:center}
+.hero-glow{position:absolute;pointer-events:none;width:260px;height:260px;border-radius:100%;right:-40px;top:-35px;background:radial-gradient(circle,#d7ae5936,transparent 65%)}
+.student-hero h2{font-size:26px;letter-spacing:-.8px;line-height:1.2;max-width:350px;margin:8px 0 12px;position:relative}
+.student-hero>p{font-size:12px;color:var(--subtext);line-height:1.65;max-width:370px;margin:0 0 20px;position:relative}
+.student-hero .btn{position:relative}
+.student-shortcuts .panel-header{margin-bottom:12px}
+.student-shortcut{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:1px solid var(--line);background:var(--surface-2);padding:14px 12px;border-radius:9px;color:var(--text);margin-top:10px;transition:.2s}
+.student-shortcut>.icon{color:var(--gold);height:23px;width:23px}.student-shortcut span{flex:1}.student-shortcut strong,.student-shortcut small{display:block}.student-shortcut strong{font-size:11px}.student-shortcut small{color:var(--muted);font-size:10px;margin-top:4px}.student-shortcut b{font-size:24px;font-weight:400;color:var(--gold)}
+.student-shortcut:hover{border-color:var(--gold-muted);transform:translateX(3px)}
+.student-section-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:28px 0 16px}
+.student-section-heading h2{margin:0;font-size:18px;letter-spacing:-.3px}.student-section-heading p{margin:5px 0 0;color:var(--muted);font-size:11px}
+.student-section-space{margin-top:36px}
+.workout-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.workout-tile{border:1px solid var(--line);border-radius:12px;padding:21px;background:var(--surface);transition:transform .28s,border-color .28s,box-shadow .28s;animation:cardRise .7s both}
+.workout-tile:hover{transform:translateY(-5px);border-color:var(--gold-muted);box-shadow:var(--shadow)}
+.tile-top{display:flex;justify-content:space-between;align-items:center}.tile-icon{display:grid;place-items:center;width:40px;height:40px;border-radius:10px;background:var(--gold-bg);color:var(--gold)}
+.tiny-tag{font-size:9px;font-weight:750;letter-spacing:.6px;border-radius:40px;padding:6px 9px;background:var(--gold-bg);color:var(--gold)}.tiny-tag.custom{background:#4c625035;color:var(--green)}
+.workout-tile h3{font-size:15px;margin:17px 0 7px}.workout-tile>p{font-size:11px;color:var(--muted);min-height:36px;margin:0 0 14px}
+.tile-meta{display:flex;flex-direction:column;gap:8px;color:var(--subtext);font-size:10px}.tile-meta span{display:flex;align-items:center;gap:6px}.tile-meta .icon{width:14px;height:14px;color:var(--gold)}
+.tile-buttons{display:flex;gap:8px;margin-top:20px}.tile-buttons .btn{flex:1}
+.student-empty{grid-column:1/-1;text-align:center;padding:42px 20px}.student-empty>.icon{color:var(--gold);width:30px;height:30px}.student-empty h3{margin:9px 0;font-size:15px}.student-empty p{color:var(--muted);font-size:11px;margin:0 auto 17px;max-width:420px;line-height:1.7}
+.counter-pill{color:var(--gold-bright);background:var(--gold-bg);border:1px solid #a17b403d;border-radius:30px;font-size:11px;padding:7px 11px;white-space:nowrap}
+.student-builder-grid{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(280px,.85fr);gap:18px;align-items:start}
+.builder-filters{display:flex;gap:10px;margin:20px 0}.builder-filters .search-inline{flex:1}.builder-filters .panel-select{min-width:160px}
+.exercise-catalog{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.exercise-card{background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:14px;transition:background .2s,border-color .2s,transform .2s}
+.exercise-card:hover{border-color:var(--gold-muted)}.exercise-card.selected{background:var(--gold-bg);border-color:var(--gold)}.exercise-card[hidden]{display:none!important}
+.exercise-pick{display:flex;gap:10px;align-items:start;cursor:pointer}.exercise-pick input{position:absolute;opacity:0;width:1px;height:1px}.exercise-pick input:focus-visible+.exercise-checkmark{outline:2px solid var(--gold);outline-offset:3px}
+.exercise-checkmark{width:23px;height:23px;flex:none;display:grid;place-items:center;border:1px solid var(--muted);border-radius:6px;color:transparent;transition:.2s}
+.exercise-checkmark .icon{width:15px;height:15px}.exercise-pick input:checked+.exercise-checkmark{background:var(--gold);border-color:var(--gold);color:#251d13}
+.exercise-pick>span:last-child{min-width:0}.exercise-pick strong{font-size:12px;display:block}.exercise-pick small{display:block;color:var(--muted);font-size:10px;line-height:1.5;margin:5px 0 0}
+.exercise-fields{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:14px}.exercise-fields label{font-size:10px;color:var(--subtext)}.exercise-fields input{display:block;width:100%;margin-top:5px;font-size:11px;padding:9px}
+.builder-details{position:relative}.builder-sticky{position:sticky;top:100px}.builder-details h2{margin:0 0 5px}.form-field{display:block;font-size:11px;font-weight:700;color:var(--subtext);margin-top:20px}.form-field .form-control{display:block;width:100%;margin-top:7px;font-weight:400}.builder-preview{border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin:23px 0;padding:18px 0;display:flex;justify-content:space-between;gap:8px;font-size:11px;color:var(--subtext)}.builder-preview strong{color:var(--text)}.builder-preview b{font-size:16px;color:var(--gold)}.builder-save{width:100%;padding:14px}.builder-disclaimer{font-size:10px;color:var(--muted);line-height:1.6;margin:12px 0 0}.builder-no-results{color:var(--muted);font-size:12px;text-align:center;padding:25px}
+.student-membership-grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(250px,.8fr);gap:16px}
+.membership-feature{min-height:265px}.membership-feature .panel-header h2{font-size:24px;line-height:1.2}.membership-metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:25px 18px;margin-top:32px}.membership-metrics span,.membership-metrics strong{display:block}.membership-metrics span{font-size:11px;color:var(--muted)}.membership-metrics strong{font-size:17px;margin-top:6px}.student-message{color:var(--muted);font-size:12px;margin-top:25px}
+.student-account{text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px}.student-big-avatar{width:64px;height:64px;font-size:18px;margin-bottom:8px}.student-account h2{font-size:18px;margin:0}.student-account>p{font-size:11px;color:var(--muted);margin:0 0 10px}.student-account-note{max-width:260px;line-height:1.7;margin:8px auto!important}.membership-history{margin-top:16px}
+.student-workout-detail{margin:16px 0 8px;max-height:55vh;overflow-y:auto}.detail-description{font-size:12px;color:var(--subtext)}.detail-author{display:flex;gap:7px;align-items:center;color:var(--gold);font-size:11px;padding:10px 0 16px;border-bottom:1px solid var(--line)}.detail-author .icon{height:15px;width:15px}
+.workout-detail-item{display:flex;align-items:flex-start;gap:14px;border-bottom:1px solid var(--line);padding:16px 0}.workout-detail-index{display:grid;place-items:center;width:30px;height:30px;flex:none;background:var(--gold-bg);color:var(--gold);border-radius:8px;font-weight:700}.workout-detail-item strong{font-size:12px}.workout-detail-item p{color:var(--muted);font-size:10px;margin:5px 0 0}.detail-pills{display:flex;gap:7px;margin-top:9px;flex-wrap:wrap}.detail-pills span{border:1px solid var(--line);border-radius:20px;padding:4px 8px;color:var(--subtext);font-size:10px}.workout-detail-item .workout-note{color:var(--gold);font-style:italic;font-size:11px;margin-top:10px}.student-empty-inline{padding:30px;color:var(--muted);text-align:center}
+@media(max-width:1160px){.student-main .student-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.workout-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.exercise-catalog{grid-template-columns:1fr}}
+@media(max-width:1020px){.portal-shell{grid-template-columns:minmax(0,1fr) 380px;gap:26px}.portal-intro h1{font-size:44px}.student-dashboard-grid{grid-template-columns:1fr}.student-builder-grid{grid-template-columns:minmax(0,1.2fr) minmax(240px,1fr)}}
+@media(max-width:840px){.portal-shell{grid-template-columns:1fr;max-width:540px;padding:20px 0}.portal-intro h1{font-size:42px;margin:16px 0}.portal-intro>p{margin-bottom:15px;font-size:13px}.portal-warning{margin-top:18px}.portal-card{padding:23px}.student-membership-grid{grid-template-columns:1fr}}
+@media(max-width:690px){.portal-screen{padding:12px 15px}.portal-logo{width:49px;height:49px;border-radius:13px}.portal-logo .icon{width:26px;height:26px}.portal-label{margin-bottom:13px;font-size:9px}.portal-intro h1{font-size:35px;letter-spacing:-1.3px;margin:14px 0}.portal-intro>p{font-size:12px;line-height:1.6}.portal-card{padding:19px}.portal-card h2{font-size:20px;margin:0 0 16px}.student-main .student-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.workout-grid{grid-template-columns:1fr}.student-builder-grid{grid-template-columns:1fr}.exercise-catalog{grid-template-columns:1fr}.builder-filters{flex-direction:column}.builder-filters .panel-select{width:100%}.student-section-heading h2{font-size:15px}.top-profile-button{padding-left:9px}.student-highlight-card>strong{font-size:21px}}
+@media(max-width:420px){.student-main .student-stats{gap:9px}.student-main .student-stats .stat-card{padding:13px}.student-main .student-stats .stat-number{font-size:24px}.student-main .stat-header{font-size:10px}.student-main .stat-bottom{font-size:9px}.portal-points{gap:9px}.portal-intro h1{font-size:31px}.membership-metrics strong{font-size:14px}}
+@media(prefers-reduced-motion:reduce){.portal-shell,.workout-tile{animation:none!important}}
+
+/* ===== V5: Catálogo muscular com mapa anatômico ===== */
+.catalog-summary{display:flex;align-items:center;gap:15px;margin-bottom:18px;padding:17px 20px}
+.catalog-summary-icon{display:grid;place-items:center;width:42px;height:42px;border-radius:12px;background:var(--gold-bg);color:var(--gold)}
+.catalog-summary-icon .icon{width:23px;height:23px}
+.catalog-summary>div{flex:1}.catalog-summary strong{font-size:15px}.catalog-summary p{font-size:11px;margin:5px 0 0;color:var(--muted)}
+.muscle-group-tabs{display:flex;flex-wrap:wrap;gap:7px;margin-top:18px;padding-bottom:17px;border-bottom:1px solid var(--line)}
+.muscle-group-tab{border:1px solid var(--line);border-radius:30px;padding:9px 12px;background:var(--surface-2);color:var(--subtext);font-size:11px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:7px;transition:all .2s}
+.muscle-group-tab span{font-size:10px;color:var(--muted)}
+.muscle-group-tab:hover{border-color:var(--gold);transform:translateY(-2px)}
+.muscle-group-tab.active{background:var(--gold);border-color:var(--gold);color:#21190b}
+.muscle-group-tab.active span{color:#4d3718}
+.region-panel-heading{display:flex;align-items:center;justify-content:space-between;margin:19px 0 12px;gap:8px}
+.region-panel-heading strong{font-size:13px}
+.region-reset{background:transparent;border:0;color:var(--gold);font-size:10px;font-weight:700;cursor:pointer}
+.muscle-region-cards{display:flex;overflow-x:auto;gap:10px;padding:0 0 12px;scroll-snap-type:x proximity;scrollbar-width:thin;scrollbar-color:var(--gold-muted) transparent}
+.muscle-region-button{flex:0 0 140px;scroll-snap-align:start;border:1px solid var(--line);border-radius:11px;background:var(--surface-2);text-align:center;padding:9px;color:var(--text);cursor:pointer;transition:all .22s;min-width:0}
+.muscle-region-button img{display:block;width:100%;height:118px;object-fit:contain;border-radius:7px;background:#fff;margin-bottom:10px}
+.muscle-region-button strong{font-size:10px;line-height:1.3;display:block;min-height:26px}
+.muscle-region-button small{display:block;font-size:9px;color:var(--muted);margin:3px 0 0}
+.muscle-region-button:hover{border-color:var(--gold);transform:translateY(-3px)}
+.muscle-region-button.active{border-color:var(--gold);background:var(--gold-bg);box-shadow:inset 0 0 0 1px var(--gold)}
+.enhanced-builder-filters{display:grid;grid-template-columns:minmax(160px,1fr) minmax(120px,160px) minmax(160px,205px);margin:18px 0 6px;gap:9px}
+.enhanced-builder-filters select{width:100%;min-width:0}
+.enhanced-builder-filters input{width:100%}
+.exercise-filter-summary{margin:11px 0 12px;font-size:10px;color:var(--subtext)}
+.exercise-catalog{max-height:620px;overflow-y:auto;overscroll-behavior:contain;grid-template-columns:repeat(2,minmax(0,1fr));padding:2px 3px 10px 1px;scrollbar-width:thin;scrollbar-color:var(--gold-muted) transparent}
+.exercise-card{min-width:0;min-height:118px;padding:11px;animation:cardRise .35s both}
+.exercise-main-row{display:flex;align-items:center;gap:9px;min-width:0}
+.muscle-thumb{display:block;object-fit:contain;background:#fff;border-radius:7px;border:1px solid #e7e2d9;flex:none}
+.exercise-card-image{height:93px;width:76px}
+.exercise-card .exercise-pick{flex:1;min-width:0;align-items:center;gap:8px}
+.exercise-card .exercise-pick strong{font-size:11px;line-height:1.35;overflow-wrap:anywhere}
+.exercise-card .exercise-pick small{line-height:1.4;word-break:normal;overflow-wrap:anywhere}
+.exercise-card .exercise-pick small em{color:var(--gold);font-style:normal}
+.exercise-card .exercise-fields{display:none;padding-left:85px;margin-top:11px;grid-template-columns:repeat(2,minmax(0,1fr))}
+.exercise-card.selected .exercise-fields{display:grid;animation:pageEnter .2s ease both}
+.selected-exercise-preview{max-height:290px;overflow-y:auto;display:grid;gap:8px;scrollbar-width:thin}
+.selected-exercise-preview>p{color:var(--muted);font-size:11px;line-height:1.6;margin:0 0 16px}
+.chosen-workout-item{display:flex;align-items:center;gap:9px;border:1px solid var(--line);border-radius:9px;background:var(--surface-2);padding:7px}
+.chosen-workout-item img{width:43px;height:54px}
+.chosen-workout-item>div{flex:1;min-width:0}
+.chosen-workout-item strong{font-size:10px;display:block;line-height:1.35}
+.chosen-workout-item small{font-size:9px;color:var(--muted);display:block;margin-top:4px;line-height:1.3}
+.remove-selected-exercise{border:1px solid var(--line);border-radius:6px;background:transparent;color:var(--muted);font-size:17px;cursor:pointer;padding:2px 8px}
+.remove-selected-exercise:hover{border-color:var(--red);color:var(--red)}
+.detail-muscle-image{width:58px;height:75px}
+.workout-detail-item{align-items:center}
+.exercise-admin-name{display:flex;align-items:center;gap:10px;min-width:190px}
+.exercise-admin-name .muscle-thumb{width:47px;height:58px}
+.exercise-admin-name strong{font-size:11px;line-height:1.4;white-space:normal;min-width:145px}
+.gold-region{color:var(--gold);font-weight:600;font-size:11px}
+body.light .muscle-group-tab.active{color:#21190b}
+@media(max-width:1250px){.enhanced-builder-filters{grid-template-columns:1fr 1fr}.enhanced-builder-filters .search-inline{grid-column:1/-1}.exercise-catalog{grid-template-columns:1fr}}
+@media(max-width:1020px){.student-builder-grid{grid-template-columns:1fr}.exercise-catalog{grid-template-columns:repeat(2,minmax(0,1fr));max-height:560px}.enhanced-builder-filters{grid-template-columns:1fr 1fr}.builder-sticky{position:static}}
+@media(max-width:690px){.catalog-summary{flex-wrap:wrap}.catalog-summary .demo-tag{margin-left:55px}.muscle-region-button{flex-basis:122px}.muscle-region-button img{height:104px}.exercise-catalog{grid-template-columns:1fr;max-height:500px}.enhanced-builder-filters{grid-template-columns:1fr}.enhanced-builder-filters .search-inline{grid-column:auto}.muscle-group-tabs{gap:6px}.muscle-group-tab{padding:8px 10px;font-size:10px}}
+@media(prefers-reduced-motion:reduce){.exercise-card{animation:none}}
+
+
+/* V6 • Montador visual em três etapas, mantendo a identidade preta e dourada */
+.builder-choice-stage[hidden]{display:none!important}
+.builder-choice-stage{animation:pageEnter .35s ease both}
+.builder-path{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:20px;padding:12px;background:var(--surface-2);border:1px solid var(--line);border-radius:10px}
+.path-step{border-radius:25px;padding:7px 10px;color:var(--muted);font-weight:750;font-size:10px}
+.path-step.current{color:#201608;background:var(--gold)}
+.path-step.completed{color:var(--gold)}
+.path-divider{color:var(--muted);font-size:17px}
+.stage-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:23px 0 15px}
+.stage-index{display:block;color:var(--gold);font-size:9px;letter-spacing:1.4px;font-weight:800;margin-bottom:5px}
+.stage-top h3{font-size:16px;line-height:1.3;letter-spacing:-.3px;margin:0;color:var(--text)}
+.stage-top p{color:var(--muted);font-size:10px;margin:5px 0 0;line-height:1.6}
+.group-image-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
+.group-image-button{background:var(--surface-2);border:1px solid var(--line);border-radius:12px;overflow:hidden;cursor:pointer;position:relative;text-align:left;padding:7px;color:var(--text);min-width:0;transition:border-color .2s,transform .2s,box-shadow .2s}
+.group-image-button:hover{transform:translateY(-4px);border-color:var(--gold);box-shadow:0 8px 22px #0004}
+.group-image-button:focus-visible,.muscle-region-button:focus-visible,.builder-back:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.group-image-button img{display:block;width:100%;aspect-ratio:1.65;object-fit:cover;background:#f8f7f5;border-radius:8px;transition:transform .3s}
+.group-image-button:hover img{transform:scale(1.025)}
+.group-card-caption{display:block;padding:10px 6px 7px}
+.group-card-caption strong{display:block;font-size:12px;line-height:1.3}
+.group-card-caption small{display:block;font-size:10px;color:var(--muted);margin-top:4px}
+.group-card-arrow,.region-card-arrow{position:absolute;right:12px;bottom:14px;color:var(--gold);font-size:24px;line-height:1}
+.region-image-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
+.region-image-grid .muscle-region-button{position:relative;min-width:0;flex:none;text-align:center;width:100%;height:100%;padding:9px 9px 22px;border-radius:12px;box-shadow:none}
+.region-image-grid .muscle-region-button img{width:100%;height:auto;aspect-ratio:4 / 3;object-fit:contain;border-radius:8px;background:#f8f7f5;padding:3px;margin-bottom:10px}
+.region-image-grid .muscle-region-button strong{font-size:12px;min-height:0}
+.region-image-grid .muscle-region-button small{font-size:10px;margin:5px 0 0}
+.region-image-grid .region-card-arrow{bottom:5px;right:10px;font-size:20px}
+.builder-back{white-space:nowrap;font-size:11px}
+.v6-builder-search{display:block;margin:14px 0 9px}
+.v6-builder-search .search-inline{width:100%;max-width:100%}
+.builder-more{margin-top:14px;width:100%;border:1px solid var(--line)}
+.builder-choice-stage .exercise-catalog{scrollbar-color:var(--gold-muted) transparent}
+@media(max-width:1200px){.group-image-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.region-image-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:690px){.group-image-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.region-image-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.group-card-caption strong{font-size:11px}.stage-top h3{font-size:14px}.builder-path{gap:4px}.path-step{padding:6px 7px;font-size:9px}}
+@media(max-width:340px){.region-image-grid{grid-template-columns:1fr 1fr}.group-image-grid{gap:7px}.group-image-button{padding:5px}.region-image-grid .muscle-region-button{padding:6px 6px 17px}}
+@media(prefers-reduced-motion:reduce){.builder-choice-stage{animation:none}.group-image-button:hover,.muscle-region-button:hover{transform:none}}
+
+/* V7 — Galeria administrativa e portal do professor */
+.admin-muscle-gallery{margin-bottom:20px;padding:24px}
+.admin-muscle-gallery .group-image-grid,.admin-muscle-gallery .region-image-grid{margin-top:18px}
+.admin-muscle-gallery .muscle-active{outline:2px solid #d7ae59;box-shadow:0 0 0 4px #d7ae5930}
+.muscle-gallery-breadcrumb{font-size:13px;margin:12px 0;color:var(--text-muted,#aaa)}
+.teacher-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:20px 0}
+.teacher-stats .panel{display:flex;flex-direction:column;gap:8px;padding:25px}
+.teacher-stats strong{font-size:36px;color:#d7ae59}.teacher-stats span{font-size:12px;opacity:.78}
+.teacher-welcome{padding:28px}.teacher-welcome h2{margin-bottom:9px}.teacher-welcome p{margin-bottom:22px}
+.teacher-students{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.teacher-student{display:flex;gap:14px;align-items:center;padding:17px}
+.teacher-student>div{flex:1;min-width:0}.teacher-student h3{font-size:14px;margin:0 0 5px}.teacher-student p{font-size:12px;overflow-wrap:anywhere;opacity:.7}
+.teacher-tile-actions{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+.portal-card>.portal-enter{margin-bottom:5px}
+@media(max-width:800px){.teacher-students{grid-template-columns:1fr}.teacher-stats{grid-template-columns:1fr}.teacher-student{flex-wrap:wrap}}
+
+/* V8: seleção de perfil em coluna, seguida de login separado */
+.portal-role-list{display:flex;flex-direction:column;gap:12px}
+.portal-step-description{color:#b8b2aa;font-size:12px;line-height:1.65;margin:-12px 0 22px}
+.portal-step[hidden]{display:none!important}
+.portal-step:not([hidden]){animation:portalStepIn .3s ease both}
+@keyframes portalStepIn{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}
+.portal-back{color:#d7ae59;background:transparent;border:0;padding:3px 0 18px;cursor:pointer;font-weight:700;font-size:12px;text-align:left}
+.portal-back:hover{text-decoration:underline}
+.portal-password-label{margin-top:18px}
+.portal-password-wrap{display:flex;position:relative;align-items:center}
+.portal-password-wrap input{width:100%;padding-right:91px}
+.portal-password-wrap button{position:absolute;right:8px;border:0;border-radius:6px;background:#34312b;color:#e5c487;padding:8px 10px;cursor:pointer;font-size:11px}
+.portal-demo-credentials{font-size:11px;color:#aaa49a;line-height:1.65;margin:13px 0 0}
+.portal-demo-credentials strong{color:#e5c487}
+.portal-login-error{font-size:11px;color:#ff9a91;margin-top:11px}
+.portal-step .portal-enter{margin-top:21px}
+.portal-role:focus-visible,.portal-back:focus-visible,.portal-password-wrap button:focus-visible{outline:2px solid #d7ae59;outline-offset:3px}
+@media(prefers-reduced-motion:reduce){.portal-step:not([hidden]){animation:none}}
+
+/* V9: identidade somente tipografica e acesso por nome digitado */
+.portal-logo,.portal-points{display:none!important}
+.portal-intro h1{margin-top:20px}
+.brand-icon{display:none!important}
+.portal-select::placeholder{color:#b6b0a9;opacity:1}

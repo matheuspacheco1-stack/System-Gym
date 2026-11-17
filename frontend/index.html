@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101114">
+  <meta name="description" content="SYSTEM GYM — painel de gestão de academia. Demonstração de frontend em HTML, CSS e JavaScript.">
+  <title>SYSTEM GYM — Painel de gestão</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/portal.css">
+  <script src="js/catalogo.js" defer></script>
+  <script src="js/script.js" defer></script>
+  <script src="js/portal.js" defer></script>
+</head>
+<body>
+  <!-- Ícones vetoriais locais: nenhuma biblioteca de ícones é necessária -->
+  <svg xmlns="http://www.w3.org/2000/svg" class="svg-sprite" aria-hidden="true">
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21v-2a8 8 0 0 1 16 0v2"/></symbol>
+    <symbol id="i-badge" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M6 16c0-2 6-2 6 0M15 9h3M15 13h3"/></symbol>
+    <symbol id="i-card" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="3"/><path d="M2 10h20M6 15h4"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18M8 14h3M8 17h3"/></symbol>
+    <symbol id="i-dumbbell" viewBox="0 0 24 24"><path d="m6.5 6.5 11 11m-13-9 4-4m7 15 4-4M3 10l7-7m4 18 7-7"/></symbol>
+    <symbol id="i-activity" viewBox="0 0 24 24"><path d="M3 12h4l3-7 4 14 3-7h4"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.2A8.2 8.2 0 0 1 9.8 4a8.2 8.2 0 1 0 10.4 10.2Z"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M7 17 17 7M7 7h10v10"/></symbol>
+    <symbol id="i-trending" viewBox="0 0 24 24"><path d="m3 17 7-7 4 4 7-7M15 7h6v6"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l4 2"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24"><path d="m12 19 7-7 3-3-7-7-10 10-2 8 8-2zM13 4l7 7"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 3h4M6 7l1 14h10l1-14M10 11v6M14 11v6"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v13m-5-5 5 5 5-5M4 17v4h16v-4"/></symbol>
+    <symbol id="i-filter" viewBox="0 0 24 24"><path d="M4 7h16M7 12h10M10 17h4"/></symbol>
+    <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.5 9a3 3 0 1 1 5 2.5c-1.5 1-2.5 1.5-2.5 3M12 18h.01"/></symbol>
+    <symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h4M16 17l5-5-5-5M21 12H9"/></symbol>
+    <symbol id="i-more" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></symbol>
+    <symbol id="i-reset" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7M3 3v6h6"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M3 5a2 2 0 0 1 2-2h6v18H5a2 2 0 0 0-2 2zM21 5a2 2 0 0 0-2-2h-6v18h6a2 2 0 0 1 2 2z"/></symbol>
+    <symbol id="i-coins" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.8c-.8-1.5-5.5-1.7-6 1-.7 3.7 6.6 1.3 6 5.2-.5 2.7-5.2 2.5-7 1M12 5v14"/></symbol>
+  </svg>
+
+  <div class="shell">
+    <aside class="sidebar" id="sidebar" aria-label="Menu principal">
+      <div class="sidebar-header">
+        <a class="brand" href="#dashboard" aria-label="System Gym - painel inicial">
+          
+          <span class="brand-wordmark"><strong>SYSTEM <em>GYM</em></strong><small>GESTÃO INTELIGENTE</small></span>
+        </a>
+        <button class="icon-btn only-mobile close-sidebar" id="closeSidebar" aria-label="Fechar menu"><svg class="icon"><use href="#i-x"/></svg></button>
+      </div>
+
+      <div class="nav-category">MENU PRINCIPAL</div>
+      <nav id="navMenu" class="nav-menu" aria-label="Seções do sistema">
+        <button class="nav-item active" data-page="dashboard"><svg class="icon"><use href="#i-grid"/></svg><span>Visão geral</span><span class="nav-indicator"></span></button>
+        <button class="nav-item" data-page="alunos"><svg class="icon"><use href="#i-users"/></svg><span>Alunos</span></button>
+        <button class="nav-item" data-page="professores"><svg class="icon"><use href="#i-badge"/></svg><span>Professores</span></button>
+        <button class="nav-item" data-page="planos"><svg class="icon"><use href="#i-card"/></svg><span>Planos</span></button>
+        <button class="nav-item" data-page="matriculas"><svg class="icon"><use href="#i-calendar"/></svg><span>Matrículas</span></button>
+        <button class="nav-item" data-page="pagamentos"><svg class="icon"><use href="#i-coins"/></svg><span>Pagamentos</span></button>
+        <button class="nav-item" data-page="treinos"><svg class="icon"><use href="#i-dumbbell"/></svg><span>Treinos</span></button>
+        <button class="nav-item" data-page="exercicios"><svg class="icon"><use href="#i-activity"/></svg><span>Exercícios</span></button>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="sidebar-note"><svg class="icon"><use href="#i-help"/></svg><div><strong>Versão demonstrativa</strong><span>Os dados ficam neste navegador até a integração com Flask.</span></div></div>
+        <div class="side-profile"><span class="avatar" id="sidebarAvatar">AD</span><span class="profile-text"><strong id="sidebarName">Administrador</strong><small id="sidebarSubtitle">Gestor da academia</small></span><span class="online-dot" title="Interface disponível"></span></div>
+        <button class="switch-profile" id="switchProfileSidebar" type="button"><svg class="icon"><use href="#i-logout"/></svg> Trocar perfil</button>
+      </div>
+    </aside>
+    <div class="sidebar-scrim" id="sidebarScrim"></div>
+
+    <div class="workspace">
+      <header class="topbar">
+        <div class="topbar-start">
+          <button class="icon-btn only-mobile" id="menuButton" aria-label="Abrir menu"><svg class="icon"><use href="#i-menu"/></svg></button>
+          <div class="breadcrumb"><span>System Gym</span><b>/</b><strong id="breadcrumbCurrent">Visão geral</strong></div>
+        </div>
+        <div class="topbar-end">
+          <label class="global-search" for="globalSearch"><svg class="icon"><use href="#i-search"/></svg><input id="globalSearch" autocomplete="off" placeholder="Buscar seção ou registro..." aria-label="Pesquisar no sistema"><kbd>Ctrl K</kbd></label>
+          <button class="icon-btn" id="themeButton" title="Alternar tema" aria-label="Alternar tema"><svg class="icon"><use href="#i-sun"/></svg></button>
+          <div class="notification-wrap">
+            <button class="icon-btn notification-trigger" id="notificationButton" title="Ver notificações" aria-label="Ver notificações" aria-expanded="false"><svg class="icon"><use href="#i-bell"/></svg><span class="notification-dot" id="notificationDot"></span></button>
+            <div class="notification-popover" id="notificationPopover" hidden></div>
+          </div>
+          <button class="top-profile top-profile-button" id="switchProfileTop" title="Trocar perfil de demonstração" type="button"><span class="avatar avatar-sm" id="topAvatar">AD</span><strong id="topProfileName">Admin</strong><svg class="icon"><use href="#i-logout"/></svg></button>
+        </div>
+      </header>
+      <div class="route-progress" id="routeProgress" aria-hidden="true"></div>
+      <main id="mainContent" tabindex="-1"></main>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modalOverlay" hidden>
+    <div class="modal-dialog" id="modalDialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle"></div>
+  </div>
+  <div class="toast-stack" id="toastStack" aria-live="polite"></div>
+  <section class="portal-screen" id="portalScreen" role="dialog" aria-modal="true" aria-labelledby="portalTitle">
+    <div class="portal-shell">
+      <div class="portal-intro">
+        <span class="portal-label">SYSTEM GYM · EXPERIÊNCIA DEMONSTRATIVA</span>
+        
+        <h1 id="portalTitle">Um sistema.<br><em>Três experiências.</em></h1>
+        <p>Gestão administrativa, prescrição de treinos por professores e área pessoal dos alunos.</p>
+        <div class="portal-warning">Esta tela demonstra perfis, mas não autentica usuários de verdade. Para publicar o sistema, será necessária uma API com login e controle de permissões.</div>
+      </div>
+      <div class="portal-card">
+        <div id="portalRoleStep" class="portal-step">
+          <p class="eyebrow">ETAPA 01 · TIPO DE ACESSO</p>
+          <h2>Como deseja entrar?</h2>
+          <p class="portal-step-description">Selecione o seu perfil para continuar.</p>
+          <div class="portal-role-list" aria-label="Escolher tipo de acesso">
+            <button class="portal-role" type="button" data-login-role="aluno"><span class="portal-role-icon"><svg class="icon"><use href="#i-user"/></svg></span><span><strong>Aluno</strong><small>Meus treinos e matrícula</small></span><b>›</b></button>
+            <button class="portal-role" type="button" data-login-role="professor"><span class="portal-role-icon"><svg class="icon"><use href="#i-badge"/></svg></span><span><strong>Professor</strong><small>Prescrição de treinos e alunos</small></span><b>›</b></button>
+            <button class="portal-role" type="button" data-login-role="admin"><span class="portal-role-icon"><svg class="icon"><use href="#i-shield"/></svg></span><span><strong>Administrador</strong><small>Gestão completa da academia</small></span><b>›</b></button>
+          </div>
+        </div>
+        <div id="portalLoginStep" class="portal-step" hidden>
+          <button id="portalBackRoles" class="portal-back" type="button">‹ Voltar aos perfis</button>
+          <p class="eyebrow">ETAPA 02 · ACESSO DEMONSTRATIVO</p>
+          <h2 id="portalLoginTitle">Login</h2>
+          <p id="portalLoginDescription" class="portal-step-description"></p>
+          <form id="portalLoginForm" autocomplete="off">
+            <div id="portalAccountPicker">
+              <label class="portal-field" for="portalPersonName">Nome completo</label>
+              <input id="portalPersonName" class="form-control portal-select" type="text" placeholder="Digite seu nome completo" maxlength="120" autocomplete="name" required>
+            </div>
+            <div id="portalAdminAccount" hidden>
+              <label class="portal-field" for="portalAdminName">Usuário</label>
+              <input id="portalAdminName" class="form-control portal-select" value="Administrador" readonly>
+            </div>
+            <label class="portal-field portal-password-label" for="portalPassword">Senha de demonstração</label>
+            <div class="portal-password-wrap">
+              <input id="portalPassword" class="form-control portal-select" type="password" placeholder="Digite a senha" required minlength="1" autocomplete="off">
+              <button id="portalTogglePassword" type="button" aria-label="Mostrar senha" aria-pressed="false">Mostrar</button>
+            </div>
+            <p class="portal-demo-credentials">Senha provisória para demonstração: <strong>demo123</strong>. O login real será integrado ao servidor.</p>
+            <p id="portalLoginError" class="portal-login-error" role="alert" hidden></p>
+            <button class="btn btn-primary portal-enter" id="portalLoginSubmit" type="submit">Entrar no painel</button>
+          </form>
+        </div>
+        <p class="portal-hint">Protótipo visual: o login não autentica no servidor. A segurança e as permissões reais serão implementadas com Flask.</p>
+      </div>
+    </div>
+  </section>
+</body>
+</html>
