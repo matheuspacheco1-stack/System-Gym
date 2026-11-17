@@ -511,10 +511,77 @@ function openForm(kind,id=null) {
   modal(`${modalHeading(`${verb} ${cfg.one}`, 'Os dados serão armazenados somente no seu navegador.')}
   <form id="recordForm" data-kind="${kind}" data-id="${id??''}"><div class="form-grid">${cfg.fields.map(f=>inputFor(kind,f,row||{})).join('')}</div><div class="form-actions"><button type="button" class="btn btn-ghost" data-action="close-modal">Cancelar</button><button type="submit" class="btn btn-primary">${svg('check')} ${id===null?'Salvar cadastro':'Salvar alterações'}</button></div></form>`);
 }
+
+
+async function salvarAlunoNaAPI(form) {
+  if (!form.reportValidity()) return;
+
+  const id = form.dataset.id
+    ? Number(form.dataset.id)
+    : null;
+
+  const dados = Object.fromEntries(
+    new FormData(form).entries()
+  );
+
+  delete dados.data_cadastro;
+
+  const url = id
+    ? `/api/alunos/${id}`
+    : '/api/alunos/';
+
+  try {
+    const resposta = await fetch(url, {
+      method: id ? 'PUT' : 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(dados)
+    });
+
+    const resultado = await resposta.json();
+
+    if (!resposta.ok) {
+      throw new Error(
+        resultado.erro || 'Erro ao salvar aluno.'
+      );
+    }
+
+    const consulta = await fetch('/api/alunos/');
+
+    if (!consulta.ok) {
+      throw new Error('Aluno salvo, mas houve erro ao atualizar a lista.');
+    }
+
+    const alunos = await consulta.json();
+
+    db.alunos = alunos.map(aluno => ({
+      ...aluno,
+      id: aluno.id_aluno,
+      data_cadastro: aluno.data_cadastro
+        ? new Date(aluno.data_cadastro).toISOString().slice(0, 10)
+        : ''
+    }));
+
+    saveData();
+    closeModal();
+    navigate('alunos');
+    showToast('Aluno salvo no MariaDB com sucesso!');
+
+  } catch (erro) {
+    showToast(erro.message, 'error');
+    console.error(erro);
+  }
+}
+
+
 function submitForm(form){
   if(userSession?.role!=='admin')return;
   if(!form.reportValidity())return;
   const kind=form.dataset.kind,id=form.dataset.id?Number(form.dataset.id):null;
+  if (kind === 'alunos') {
+  return salvarAlunoNaAPI(form);
+}
   const row=id===null?{id:Math.max(0,...db[kind].map(r=>Number(r.id)||0))+1}:{...find(kind,id)};
   if(!row?.id)return showToast('Não foi possível localizar o registro.','error');
   for(const [key,,type] of schemas[kind].fields){const raw=new FormData(form).get(key);row[key]=(type==='number'||type.startsWith('select_'))?numeric(raw):String(raw||'').trim();}
@@ -732,3 +799,38 @@ $('.brand').addEventListener('click',e=>{e.preventDefault();navigate(userSession
 try{if(localStorage.getItem(THEME_KEY)==='light'){document.body.classList.add('light');$('#themeButton').innerHTML=svg('moon');$('#themeButton').title='Ativar tema escuro';}}catch(e){}
 refreshNotificationDot();
 // A inicialização da navegação ocorre após carregar portal.js, que define o ambiente do aluno.
+
+
+
+async function carregarAlunosDaAPI() {
+  try {
+    const resposta = await fetch('/api/alunos/');
+
+    if (!resposta.ok) {
+      throw new Error('Não foi possível carregar os alunos.');
+    }
+
+    const alunos = await resposta.json();
+
+    db.alunos = alunos.map(aluno => ({
+      ...aluno,
+      id: aluno.id_aluno,
+      data_cadastro: aluno.data_cadastro
+        ? new Date(aluno.data_cadastro).toISOString().slice(0, 10)
+        : ''
+    }));
+
+    saveData();
+
+    console.log('Alunos carregados do MariaDB:', db.alunos.length);
+  } catch (erro) {
+    console.error('Erro ao carregar alunos:', erro);
+  }
+}
+
+// Carregar alunos reais do MariaDB ao iniciar o sistema
+carregarAlunosDaAPI().then(() => {
+  if (userSession?.role === 'admin') {
+    navigate(state.page, { preserveFilter: true });
+  }
+});

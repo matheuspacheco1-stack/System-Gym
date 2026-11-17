@@ -1,6 +1,7 @@
 
 
-from flask import Flask, jsonify
+from flask import Flask, jsonify, send_from_directory
+from pathlib import Path
 from flask_cors import CORS
 
 from routes.aluno_routes import aluno_bp
@@ -44,6 +45,12 @@ def status():
         "mensagem": "Servidor conectado e funcionando!"
     }), 200
 
+FRONTEND_DIR = Path(__file__).resolve().parent.parent / "frontend"
+
+@app.route("/frontend/")
+@app.route("/frontend/<path:arquivo>")
+def abrir_frontend(arquivo="index.html"):
+    return send_from_directory(FRONTEND_DIR, arquivo)
 
 if __name__ == "__main__":
     app.run(
